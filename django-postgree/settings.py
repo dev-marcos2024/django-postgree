@@ -1,11 +1,6 @@
 import os
 from pathlib import Path
-from decouple import config
 import dj_database_url
-
-DATABASES = {
-    'default': dj_database_url.config()
-}
 
 # Caminho base do projeto
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -13,7 +8,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Segurança
 SECRET_KEY = 'django-insecure-d@pq1f!7-3c=qna+#o0p31u_-ma2=*b&(a9wd1e7!b^b+tt46j'
 DEBUG = False
-ALLOWED_HOSTS = ['*']  # Em produção, substitua por seu domínio
+ALLOWED_HOSTS = ['*']  # Em produção, defina seu domínio
+
+# Banco de Dados
+DATABASES = {
+    'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
+}
 
 # Aplicativos instalados
 INSTALLED_APPS = [
@@ -35,7 +35,7 @@ INSTALLED_APPS = [
 # Middlewares
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # WhiteNoise para servir estáticos
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -45,7 +45,7 @@ MIDDLEWARE = [
 ]
 
 # URLs
-ROOT_URLCONF = 'django-postgree.urls'
+ROOT_URLCONF = 'django_postgree.urls'  # corrigido hífen para underscore
 
 # Templates
 TEMPLATES = [
@@ -64,9 +64,7 @@ TEMPLATES = [
 ]
 
 # WSGI
-WSGI_APPLICATION = 'django-postgree.wsgi.application'
-
-# Banco de Dados (MySQL com variáveis de ambiente)
+WSGI_APPLICATION = 'django_postgree.wsgi.application'  # corrigido hífen para underscore
 
 # Validação de senha
 AUTH_PASSWORD_VALIDATORS = [
@@ -83,18 +81,16 @@ USE_I18N = True
 USE_TZ = True
 
 # Arquivos estáticos
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Arquivos de mídia (imagens enviadas)
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'midia')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # padronizado para 'media'
 
 # Campo padrão para chaves primárias
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-# Email (console no dev)
-#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Configurações do VersatileImageField
 VERSATILEIMAGEFIELD_SETTINGS = {
