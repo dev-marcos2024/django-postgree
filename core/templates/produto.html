@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+{% block title %}Produto{% endblock %}
+
+{% block content %}
+    <h2 class="text-center mb-4">Pagina Produto</h2>
+    <form
+        action="{% url 'produto' %}"
+        method="post"
+        autocomplete="off"
+        class="form d-flex flex-column container w-50 needs-validation"
+        enctype="multipart/form-data"
+    >
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <button type="submit" class="btn btn-primary btn-lg mb-4">Salvar</button>
+    {% bootstrap_messages %}
+    </form>
+{% endblock %}
