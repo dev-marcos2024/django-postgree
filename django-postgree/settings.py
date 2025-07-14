@@ -45,7 +45,7 @@ MIDDLEWARE = [
 ]
 
 # URLs
-ROOT_URLCONF = 'django_com_mysql.urls'
+ROOT_URLCONF = 'django-postgree.urls'
 
 # Templates
 TEMPLATES = [
@@ -64,7 +64,7 @@ TEMPLATES = [
 ]
 
 # WSGI
-WSGI_APPLICATION = 'django_com_mysql.wsgi.application'
+WSGI_APPLICATION = 'django-postgree.wsgi.application'
 
 # Banco de Dados (MySQL com variáveis de ambiente)
 
